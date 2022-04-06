@@ -1,9 +1,7 @@
 package com.squarefootgardenplanner.service.dynamodb.models;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.*;
+import com.squarefootgardenplanner.service.converters.GrowingSeasonConverter;
 import com.squarefootgardenplanner.service.enums.GrowingSeason;
 import com.squarefootgardenplanner.service.enums.PlantType;
 
@@ -24,6 +22,7 @@ public class Plant {
     private int weeksFromSeedToHarvest;
     private int yearsSeedsCanBeStored;
 
+    @DynamoDBTypeConvertedEnum
     @DynamoDBHashKey(attributeName = "type")
     public PlantType getType() {
         return type;
@@ -69,6 +68,7 @@ public class Plant {
         this.spacingPerSqFt = spacingPerSqFt;
     }
 
+    @DynamoDBTypeConverted(converter = GrowingSeasonConverter.class)
     @DynamoDBAttribute(attributeName = "growing_seasons")
     public List<GrowingSeason> getGrowingSeasons() {
         return growingSeasons;
