@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.squarefootgardenplanner.service.AwsSanityTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-04-19T22:34:17" hostname="Thoms-MacBook-Air.local" time="1.787">
+  <properties/>
+  <testcase name="getPlant_plantExists_returnsPlant()" classname="com.squarefootgardenplanner.service.AwsSanityTest" time="1.787"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[log4j:WARN No appenders could be found for logger (com.amazonaws.AmazonWebServiceClient).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+]]></system-err>
+</testsuite>

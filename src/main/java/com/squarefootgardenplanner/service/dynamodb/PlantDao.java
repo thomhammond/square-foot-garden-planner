@@ -6,6 +6,7 @@ import com.squarefootgardenplanner.service.enums.PlantType;
 import com.squarefootgardenplanner.service.exceptions.PlantNotFoundException;
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * Accesses data for a plant using {@link Plant} to represent the model in DynamoDB.
@@ -31,5 +32,10 @@ public class PlantDao {
         }
 
         return plant;
+    }
+
+    public List<Plant> getPlantsByType(PlantType type) {
+        // Query table for plants by type
+        return null;
     }
 }

@@ -115,7 +115,7 @@ public class Plant {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Plant plant = (Plant) o;
-        return getWeeksFromSeedToHarvest() == plant.getWeeksFromSeedToHarvest() && getYearsSeedsCanBeStored() == plant.getYearsSeedsCanBeStored() && getType() == plant.getType() && getName().equals(plant.getName()) && getFamily().equals(plant.getFamily()) && getHeight().equals(plant.getHeight()) && getSpacingPerSqFt().equals(plant.getSpacingPerSqFt()) && getGrowingSeasons().equals(plant.getGrowingSeasons());
+        return getWeeksFromSeedToHarvest() == plant.getWeeksFromSeedToHarvest() && getYearsSeedsCanBeStored() == plant.getYearsSeedsCanBeStored() && getType() == plant.getType() && getName().equals(plant.getName()) && Objects.equals(getFamily(), plant.getFamily()) && Objects.equals(getHeight(), plant.getHeight()) && Objects.equals(getSpacingPerSqFt(), plant.getSpacingPerSqFt()) && Objects.equals(getGrowingSeasons(), plant.getGrowingSeasons());
     }
 
     @Override
