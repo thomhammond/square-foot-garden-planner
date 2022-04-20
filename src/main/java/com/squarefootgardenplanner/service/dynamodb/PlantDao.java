@@ -1,6 +1,8 @@
 package com.squarefootgardenplanner.service.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
 import com.squarefootgardenplanner.service.dynamodb.models.Plant;
 import com.squarefootgardenplanner.service.enums.PlantType;
 import com.squarefootgardenplanner.service.exceptions.PlantNotFoundException;
@@ -35,7 +37,21 @@ public class PlantDao {
     }
 
     public List<Plant> getPlantsByType(PlantType type) {
-        // Query table for plants by type
-        return null;
+        // TODO: Might want to check that type is a valid PlantType here or in handleRequest
+
+        Plant plant = new Plant();
+        plant.setType(type);
+
+        DynamoDBQueryExpression<Plant> queryExpression = new DynamoDBQueryExpression<Plant>()
+                .withHashKeyValues(plant);
+
+        PaginatedQueryList<Plant> plants = dynamoDBMapper.query(Plant.class, queryExpression);
+
+        // TODO: Should this throw a unique exception? Should we check plants is not null first?
+        if (plants.isEmpty()) {
+            throw new PlantNotFoundException("No plants found with plant type: " + type);
+        }
+
+        return plants;
     }
 }
