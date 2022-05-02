@@ -1,6 +1,7 @@
-package com.squarefootgardenplanner.service.dynamodb;
+package com.squarefootgardenplanner.service.models;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.squarefootgardenplanner.service.dao.PlantDao;
 import dagger.internal.DaggerGenerated;
 import dagger.internal.Factory;
 import javax.annotation.processing.Generated;

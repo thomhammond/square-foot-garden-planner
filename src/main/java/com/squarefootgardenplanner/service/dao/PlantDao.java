@@ -1,9 +1,9 @@
-package com.squarefootgardenplanner.service.dynamodb;
+package com.squarefootgardenplanner.service.dao;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
-import com.squarefootgardenplanner.service.dynamodb.models.Plant;
+import com.squarefootgardenplanner.service.models.dynamodb.Plant;
 import com.squarefootgardenplanner.service.enums.PlantType;
 import com.squarefootgardenplanner.service.exceptions.PlantNotFoundException;
 

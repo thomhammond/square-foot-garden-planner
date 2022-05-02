@@ -1,14 +1,14 @@
-package com.squarefootgardenplanner.service.dynamodb;
+package com.squarefootgardenplanner.service.dao;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
-import com.squarefootgardenplanner.service.dynamodb.models.Plant;
+import com.squarefootgardenplanner.service.dao.PlantDao;
+import com.squarefootgardenplanner.service.models.dynamodb.Plant;
 import com.squarefootgardenplanner.service.enums.PlantType;
 import com.squarefootgardenplanner.service.exceptions.PlantNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.internal.stubbing.defaultanswers.ForwardsInvocations;
 
@@ -105,4 +105,7 @@ public class PlantDaoTest {
                 "Expected the intial and resulting plant lists to contain a single equivalent plant"
         );
     }
+    // TODO: Add helper class to generate necessary plants and plant lists
+    // TODO: Add getPlantsByType multiple plants Happy Case test
+    // TODO: Add getPlantsByType Sad Case
 }
