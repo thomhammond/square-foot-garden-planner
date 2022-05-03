@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.squarefootgardenplanner.service.dynamodb.PlantDaoTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-04-20T23:31:26" hostname="Thoms-MacBook-Air.local" time="1.227">
-  <properties/>
-  <testcase name="getPlantsByType_singlePlantOfGivenTypeExists_returnsListWithCorrectPlant()" classname="com.squarefootgardenplanner.service.dynamodb.PlantDaoTest" time="1.227"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

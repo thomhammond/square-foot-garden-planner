@@ -4,14 +4,18 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
 import com.squarefootgardenplanner.service.dao.PlantDao;
+import com.squarefootgardenplanner.service.helpers.PlantTestHelper;
 import com.squarefootgardenplanner.service.models.dynamodb.Plant;
 import com.squarefootgardenplanner.service.enums.PlantType;
 import com.squarefootgardenplanner.service.exceptions.PlantNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.internal.stubbing.defaultanswers.ForwardsInvocations;
 
+import javax.inject.Inject;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,28 +24,32 @@ import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.openMocks;
 
 public class PlantDaoTest {
+    private ArgumentCaptor<DynamoDBQueryExpression<Plant>> argumentCaptor;
 
     @Mock
     private DynamoDBMapper dynamoDBMapper;
 
+    @Mock
+    private PaginatedQueryList<Plant> paginatedQueryList;
+
+    @InjectMocks
     private PlantDao plantDao;
 
     @BeforeEach
     public void setUp() {
         openMocks(this);
-        plantDao = new PlantDao(dynamoDBMapper);
+
+        argumentCaptor = ArgumentCaptor.forClass(DynamoDBQueryExpression.class);
+        when(dynamoDBMapper.query(eq(Plant.class), argumentCaptor.capture())).thenReturn(paginatedQueryList);
     }
 
     @Test
     public void getPlant_plantExists_returnsPlant() {
         // GIVEN
-        PlantType testType = PlantType.VEGETABLES;
-        String testName = "test plant";
+        Plant testPlant = PlantTestHelper.generatePlant();
 
-        Plant testPlant = new Plant();
-
-        testPlant.setType(testType);
-        testPlant.setName(testName);
+        PlantType testType = testPlant.getType();
+        String testName = testPlant.getName();
 
         when(dynamoDBMapper.load(Plant.class, testType, testName)).thenReturn(testPlant);
 
@@ -72,40 +80,23 @@ public class PlantDaoTest {
     }
 
     @Test
-    public void getPlantsByType_singlePlantOfGivenTypeExists_returnsListWithCorrectPlant() {
+    public void getPlantsByType_existingPlantType_returnsPlantList() {
         // GIVEN
         PlantType testType = PlantType.VEGETABLES;
-        String testName = "test plant";
-
-
-        Plant testPlant = new Plant();
-
-        List<Plant> plantList = List.of(testPlant);
-
-        PaginatedQueryList<?> paginatedPlantList = mock(PaginatedQueryList.class,
-                                                         withSettings().defaultAnswer(new ForwardsInvocations(plantList)));
-
-
-        // TODO: Research how to get rid of unchecked assignment warning on <any>
-        when(dynamoDBMapper.query(eq(Plant.class), any(DynamoDBQueryExpression.class))).thenReturn(paginatedPlantList);
 
         // WHEN
-        List<Plant> resultPlantList = plantDao.getPlantsByType(testType);
+        List<Plant> plantList = plantDao.getPlantsByType(testType);
 
         // THEN
-        assertEquals(
-                plantList.size(),
-                resultPlantList.size(),
-                String.format("Expected plantList (%s) and resultPlantList (%s) to be the be the same size", plantList, resultPlantList)
-        );
-
-        assertEquals(
-                plantList.get(0),
-                resultPlantList.get(0),
-                "Expected the intial and resulting plant lists to contain a single equivalent plant"
-        );
+        DynamoDBQueryExpression<Plant> dynamoDBQueryExpression = argumentCaptor.getValue();
+        assertEquals(testType, dynamoDBQueryExpression.getHashKeyValues().getType());
+        assertEquals(paginatedQueryList, plantList);
     }
-    // TODO: Add helper class to generate necessary plants and plant lists
+
+    @Test
+    public void getPlantsByType_plantTypeDoesNotExist_throwsPlantTypeNotFoundException() {
+
+    }
     // TODO: Add getPlantsByType multiple plants Happy Case test
     // TODO: Add getPlantsByType Sad Case
 }

@@ -8,6 +8,7 @@ import com.squarefootgardenplanner.service.enums.PlantType;
 import com.squarefootgardenplanner.service.exceptions.PlantNotFoundException;
 
 import javax.inject.Inject;
+import java.util.EnumSet;
 import java.util.List;
 
 /**
@@ -37,7 +38,8 @@ public class PlantDao {
     }
 
     public List<Plant> getPlantsByType(PlantType type) {
-        // TODO: Might want to check that type is a valid PlantType here or in handleRequest
+        // TODO: Might want to check that type is a valid PlantType here or in handleRequest...
+        // TODO: Should this take in a String and do the conversion in the activity?
 
         Plant plant = new Plant();
         plant.setType(type);
@@ -48,6 +50,8 @@ public class PlantDao {
         PaginatedQueryList<Plant> plants = dynamoDBMapper.query(Plant.class, queryExpression);
 
         // TODO: Should this throw a unique exception? Should we check plants is not null first?
+        // TODO: Should this even throw an exception? Should we just return an empty list?
+        // TODO: Or since we check that we have a valid plant type first, can we assume we'll always have a valid list?
         if (plants.isEmpty()) {
             throw new PlantNotFoundException("No plants found with plant type: " + type);
         }
