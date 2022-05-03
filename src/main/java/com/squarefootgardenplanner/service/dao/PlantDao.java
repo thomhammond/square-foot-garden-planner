@@ -3,12 +3,11 @@ package com.squarefootgardenplanner.service.dao;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
-import com.squarefootgardenplanner.service.models.dynamodb.Plant;
+import com.squarefootgardenplanner.service.models.Plant;
 import com.squarefootgardenplanner.service.enums.PlantType;
 import com.squarefootgardenplanner.service.exceptions.PlantNotFoundException;
 
 import javax.inject.Inject;
-import java.util.EnumSet;
 import java.util.List;
 
 /**

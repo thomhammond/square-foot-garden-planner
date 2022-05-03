@@ -1,4 +1,4 @@
-package com.squarefootgardenplanner.service.models.dynamodb;
+package com.squarefootgardenplanner.service.models;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import com.squarefootgardenplanner.service.converters.GrowingSeasonConverter;

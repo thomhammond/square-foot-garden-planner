@@ -1,11 +1,10 @@
 package com.squarefootgardenplanner.service.helpers;
 
 import com.squarefootgardenplanner.service.enums.PlantType;
-import com.squarefootgardenplanner.service.models.dynamodb.Plant;
+import com.squarefootgardenplanner.service.models.Plant;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class PlantTestHelper {
     /**

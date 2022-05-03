@@ -3,9 +3,8 @@ package com.squarefootgardenplanner.service.dao;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
-import com.squarefootgardenplanner.service.dao.PlantDao;
 import com.squarefootgardenplanner.service.helpers.PlantTestHelper;
-import com.squarefootgardenplanner.service.models.dynamodb.Plant;
+import com.squarefootgardenplanner.service.models.Plant;
 import com.squarefootgardenplanner.service.enums.PlantType;
 import com.squarefootgardenplanner.service.exceptions.PlantNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,9 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.internal.stubbing.defaultanswers.ForwardsInvocations;
 
-import javax.inject.Inject;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
