@@ -38,8 +38,6 @@ public class PlantDao {
 
     public List<Plant> getPlantsByType(PlantType type) {
         // TODO: Might want to check that type is a valid PlantType here or in handleRequest...
-        // TODO: Should this take in a String and do the conversion in the activity?
-
         // TODO: Maybe add a logger?
 
         Plant plant = new Plant();

@@ -22,7 +22,7 @@ public class Plant {
     private int weeksFromSeedToHarvest;
     private int yearsSeedsCanBeStored;
 
-    @DynamoDBTypeConvertedEnum
+    @DynamoDBTypeConvertedEnum // Should this be on the enum?
     @DynamoDBHashKey(attributeName = "type")
     public PlantType getType() {
         return type;

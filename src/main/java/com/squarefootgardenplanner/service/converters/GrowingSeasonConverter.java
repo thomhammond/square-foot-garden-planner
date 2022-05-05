@@ -1,32 +1,23 @@
 package com.squarefootgardenplanner.service.converters;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverter;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.squarefootgardenplanner.service.enums.GrowingSeason;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GrowingSeasonConverter implements DynamoDBTypeConverter<List<String>, List<GrowingSeason>> {
+public class GrowingSeasonConverter implements DynamoDBTypeConverter<String, List> {
+    private static final Gson GSON = new Gson();
 
     @Override
-    public List<String> convert(List<GrowingSeason> growingSeasons) {
-        List<String> result = new ArrayList<>();
-        if (growingSeasons != null) {
-            for (GrowingSeason season : growingSeasons) {
-                result.add(season.name());
-            }
-        }
-        return result;
+    public String convert(List growingSeasons) {
+        return GSON.toJson(growingSeasons);
     }
 
     @Override
-    public List<GrowingSeason> unconvert(List<String> growingSeasons) {
-        List<GrowingSeason> result = new ArrayList<>();
-        if (growingSeasons != null) {
-            for (String season : growingSeasons) {
-                result.add(GrowingSeason.valueOf(season));
-            }
-        }
-        return result;
+    public List unconvert(String growingSeasons) {
+        return GSON.fromJson(growingSeasons, new TypeToken<ArrayList<GrowingSeason>>() {}.getType());
     }
 }

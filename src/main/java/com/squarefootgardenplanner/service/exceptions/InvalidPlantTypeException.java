@@ -1,5 +1,6 @@
 package com.squarefootgardenplanner.service.exceptions;
 
+//TODO: Do I still need this?
 public class InvalidPlantTypeException extends RuntimeException {
     private static final long serialVersionUID = -3512117163378550420L;
 

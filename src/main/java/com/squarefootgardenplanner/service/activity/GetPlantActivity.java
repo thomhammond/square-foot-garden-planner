@@ -4,7 +4,6 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.squarefootgardenplanner.service.dao.PlantDao;
 import com.squarefootgardenplanner.service.enums.PlantType;
-import com.squarefootgardenplanner.service.exceptions.InvalidPlantTypeException;
 import com.squarefootgardenplanner.service.models.Plant;
 import com.squarefootgardenplanner.service.models.requests.GetPlantRequest;
 import com.squarefootgardenplanner.service.models.results.GetPlantResponse;
@@ -24,20 +23,12 @@ public class GetPlantActivity implements RequestHandler<GetPlantRequest, GetPlan
         this.plantDao = plantDao;
     }
 
+    // TODO: Add JavaDocs
     @Override
     public GetPlantResponse handleRequest(final GetPlantRequest request, Context context) {
         log.info("Received GetPlantRequest {}", request);
 
-        String typeString = request.getType();
-        PlantType type;
-
-        // TODO: is all of this really necessary? Can I just assume a PlantType in the request?
-        if (PlantType.isValidPlantType(typeString)) {
-            type = PlantType.getPlantType(typeString);
-        } else {
-            throw new InvalidPlantTypeException(typeString + " is not a valid PlantType");
-        }
-
+        PlantType type = request.getType();
         String name = request.getName();
 
         Plant plant = plantDao.getPlant(type, name);
