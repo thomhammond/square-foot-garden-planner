@@ -35,7 +35,8 @@ public class AwsSanityTest {
         expectedPlant.setName("Squash");
 
         Plant plant = plantDao.getPlant(PlantType.VEGETABLES, "Squash");
-
+        // TODO: String attribute not set == 'null', List Attribute not set == null, Number attribute not set == 0...
+        // ... Didn't know where else to put this but we'll need to account for it
         assertEquals(expectedPlant, plant, "Plants are not the same");
     }
 

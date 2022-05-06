@@ -26,6 +26,7 @@ public class PlantDao {
         this.dynamoDBMapper = dynamoDBMapper;
     }
 
+    // TODO: Add JavaDocs
     public Plant getPlant(PlantType type, String name) throws PlantNotFoundException {
         Plant plant = dynamoDBMapper.load(Plant.class, type, name);
 
@@ -36,25 +37,14 @@ public class PlantDao {
         return plant;
     }
 
+    // TODO: Add JavaDocs
     public List<Plant> getPlantsByType(PlantType type) {
-        // TODO: Might want to check that type is a valid PlantType here or in handleRequest...
-        // TODO: Maybe add a logger?
-
         Plant plant = new Plant();
         plant.setType(type);
 
         DynamoDBQueryExpression<Plant> queryExpression = new DynamoDBQueryExpression<Plant>()
                 .withHashKeyValues(plant);
 
-        PaginatedQueryList<Plant> plants = dynamoDBMapper.query(Plant.class, queryExpression);
-
-        // TODO: Should this throw a unique exception? Should we check plants is not null first?
-        // TODO: Should this even throw an exception? Should we just return an empty list?
-        // TODO: Or since we check that we have a valid plant type first, can we assume we'll always have a valid list?
-        if (plants.isEmpty()) {
-            throw new PlantNotFoundException("No plants found with plant type: " + type);
-        }
-
-        return plants;
+        return dynamoDBMapper.query(Plant.class, queryExpression);
     }
 }
