@@ -89,11 +89,4 @@ public class PlantDaoTest {
         assertEquals(testType, dynamoDBQueryExpression.getHashKeyValues().getType());
         assertEquals(paginatedQueryList, plantList);
     }
-
-    @Test
-    public void getPlantsByType_plantTypeDoesNotExist_throwsPlantTypeNotFoundException() {
-
-    }
-    // TODO: Add getPlantsByType multiple plants Happy Case test... Maybe not because of argument captor approach
-    // TODO: Add getPlantsByType Sad Case
 }
