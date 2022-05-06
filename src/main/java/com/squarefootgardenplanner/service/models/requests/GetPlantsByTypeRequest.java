@@ -2,15 +2,13 @@ package com.squarefootgardenplanner.service.models.requests;
 
 import com.squarefootgardenplanner.service.enums.PlantType;
 
-public class GetPlantRequest {
+public class GetPlantsByTypeRequest {
     private PlantType type;
-    private String name;
 
-    public GetPlantRequest() {}
+    public GetPlantsByTypeRequest() {}
 
-    public GetPlantRequest(Builder builder) {
+    public GetPlantsByTypeRequest(Builder builder) {
         this.type = builder.type;
-        this.name = builder.name;
     }
 
     public PlantType getType() {
@@ -21,21 +19,12 @@ public class GetPlantRequest {
         this.type = type;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public static Builder builder() {
         return new Builder();
     }
 
     public static final class Builder {
         private PlantType type;
-        private String name;
 
         private Builder() {}
 
@@ -44,13 +33,10 @@ public class GetPlantRequest {
             return this;
         }
 
-        public Builder withName(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public GetPlantRequest build() {
-            return new GetPlantRequest(this);
+        public GetPlantsByTypeRequest build() {
+            return new GetPlantsByTypeRequest(this);
         }
     }
+
+
 }

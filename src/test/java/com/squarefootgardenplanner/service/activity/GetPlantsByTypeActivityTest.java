@@ -1,31 +1,35 @@
 package com.squarefootgardenplanner.service.activity;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.squarefootgardenplanner.service.dao.PlantDao;
 import com.squarefootgardenplanner.service.enums.PlantType;
 import com.squarefootgardenplanner.service.helpers.PlantTestHelper;
 import com.squarefootgardenplanner.service.models.Plant;
-import com.squarefootgardenplanner.service.models.requests.GetPlantRequest;
-import com.squarefootgardenplanner.service.models.results.GetPlantResponse;
+import com.squarefootgardenplanner.service.models.requests.GetPlantsByTypeRequest;
+import com.squarefootgardenplanner.service.models.results.GetPlantsByTypeResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
 
-public class GetPlantActivityTest {
+public class GetPlantsByTypeActivityTest {
 
     @Mock
     Context context;
 
     @Mock
-    private PlantDao plantDao;
+    PlantDao plantDao;
 
     @InjectMocks
-    GetPlantActivity getPlantActivity;
+    GetPlantsByTypeActivity getPlantsByTypeActivity;
 
     @BeforeEach
     public void setUp() {
@@ -33,26 +37,24 @@ public class GetPlantActivityTest {
     }
 
     @Test
-    public void handleRequest_plantExists_returnsPlantInResponse() {
+    public void handleRequest_validType_returnsPlantListInResponse() {
         // GIVEN
         Plant testPlant = PlantTestHelper.generatePlant();
         PlantType testType = testPlant.getType();
-        String testName = testPlant.getName();
 
-        GetPlantRequest request = GetPlantRequest.builder()
+        List<Plant> plantList = PlantTestHelper.generateSingletonPlantList();
+
+        GetPlantsByTypeRequest request = GetPlantsByTypeRequest.builder()
                 .withType(testType)
-                .withName(testName)
                 .build();
 
-        when(plantDao.getPlant(testType, testName)).thenReturn(testPlant);
+        when(plantDao.getPlantsByType(any(PlantType.class))).thenReturn(plantList);
 
         // WHEN
-        GetPlantResponse response = getPlantActivity.handleRequest(request, context);
+        GetPlantsByTypeResponse response = getPlantsByTypeActivity.handleRequest(request, context);
 
         // THEN
         // TODO: Add messages
-        assertEquals(testType, response.getPlant().getType());
-        assertEquals(testName, response.getPlant().getName());
-        assertEquals(testPlant, response.getPlant());
+        assertEquals(plantList, response.getPlantList());
     }
 }

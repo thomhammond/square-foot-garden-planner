@@ -2,6 +2,7 @@ package com.squarefootgardenplanner.service.dagger;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.squarefootgardenplanner.service.activity.GetPlantActivity;
+import com.squarefootgardenplanner.service.activity.GetPlantsByTypeActivity;
 import com.squarefootgardenplanner.service.dao.PlantDao;
 import dagger.internal.DaggerGenerated;
 import dagger.internal.DoubleCheck;
@@ -49,6 +50,11 @@ public final class DaggerServiceComponent implements ServiceComponent {
   @Override
   public GetPlantActivity provideGetPlantActivity() {
     return new GetPlantActivity(plantDao());
+  }
+
+  @Override
+  public GetPlantsByTypeActivity provideGetPlantsByTypeActivity() {
+    return new GetPlantsByTypeActivity(plantDao());
   }
 
   public static final class Builder {

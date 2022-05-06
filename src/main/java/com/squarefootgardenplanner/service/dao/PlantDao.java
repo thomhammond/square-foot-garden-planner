@@ -28,6 +28,7 @@ public class PlantDao {
 
     // TODO: Add JavaDocs
     public Plant getPlant(PlantType type, String name) throws PlantNotFoundException {
+        // TODO: I could catch DynamoDBMappingException and throw custom exception to handle invalid PlantTypes...
         Plant plant = dynamoDBMapper.load(Plant.class, type, name);
 
         if (plant == null) {
